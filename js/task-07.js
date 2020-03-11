@@ -57,11 +57,12 @@ const account = {
      * о том, что снятие такой суммы не возможно, недостаточно средств.
      */
     withdraw(amount) {
-        this.transactions.push(this.createTransaction(amount, Transaction.WITHDRAW));
-        this.balance -= amount;
-        if (amount > this.balance) {
-            console.log('Снятие такой суммы не возможно, недостаточно средств');
+        if (amount < this.balance) {
+            this.transactions.push(this.createTransaction(amount, Transaction.WITHDRAW));
+            this.balance -= amount;
+            return
         }
+        console.log('Снятие такой суммы не возможно, недостаточно средств');
     },
 
     /*
